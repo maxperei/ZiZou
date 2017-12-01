@@ -1,0 +1,40 @@
+html, body {
+    max-width: 1280px;
+    margin: 60px auto;
+}
+
+body {
+    font-family: monospace;
+    background: #e2cecf;
+}
+
+h1 {
+    font-size: 5rem;
+    text-align: center;
+}
+form {
+    display: block;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+form *:not(i):not(span):not(div) {
+    display: block;
+    margin-top: 15px;
+    width: 100%;
+}
+
+form #slider-range {
+    width: calc(100% - 15px);
+    margin-left: 5px;
+    margin-top: 20px;
+}
+
+form input[type='submit'] {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+div {
+    text-align: justify;
+}

@@ -1,0 +1,53 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ZiZou/styles.css' %}" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$( function() {
+    var $slider_range = $( "#slider-range" );
+    var $range = $( "#range" );
+    var $start = $( "#start" );
+    var $end = $( "#end" );
+    $slider_range.slider({
+      $range: true,
+      min: {{ min }},
+      max: {{ max }},
+      values: [ {{ start }}, {{ end }} ],
+      slide: function( event, ui ) {
+        $range.val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        $start.val( ui.values[ 0 ]);
+        $end.val( ui.values[ 1 ]);
+      }
+    });
+    $range.val( $slider_range.slider( "values", 0 ) + ' - ' + $slider_range.slider( "values", 1 ) );
+    $start.val( $slider_range.slider( "values", 0 ) );
+    $end.val( $slider_range.slider( "values", 1 ) );
+} );
+</script>
+
+<h1>{{ title }}</h1>
+
+<form action="/" method="get">
+    <label for="range">Interval: </label>
+    <input id="range" type="text" readonly style="border:0;">
+    <div id="slider-range"></div>
+    <input id="start" type="hidden" name="start" value="{{ start }}">
+    <input id="end" type="hidden" name="end" value="{{ end }}">
+    <label for="x">Valeur de <i>x</i>: </label>
+    <input id="x" type="number" name="x" min="1" value="{{ x }}" required>
+    <label for="y">Valeur de <i>y</i>: </label>
+    <input id="y" type="number" name="y" min="1" value="{{ y }}" required>
+    <input type="submit" value="OK">
+</form>
+
+<div>
+    {% if x or y %}
+        {% for i in range %}
+            {% if i|divisibleby:x %}Zi{% if i|divisibleby:y %}Zou{% endif %}{% elif i|divisibleby:y %}Zou{% else %}{{ i }}{% endif %}{% if forloop.last %}{% else %},{% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
